@@ -18,7 +18,7 @@ class scraper:
         self.titles = []
 
         for self.title in self.titles_elements:
-            self.titles.append(self.title.text)
+            self.titles.append(self.title.text.replace("\n", "", -1))
         
         return self.titles
 
