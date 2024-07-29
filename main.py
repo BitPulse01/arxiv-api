@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from colorama import Fore
 import requests
 
 
@@ -16,20 +17,25 @@ class scraper:
     def find_titles_and_links(self):
         self.titles_elements = self.SOUP.select("p.title.is-5.mathjax")
         self.links_element_parent = self.SOUP.select("p.list-title.is-inline-block")
-
-        self.links_element_parent
-
+        
         self.titles = []
+        self.links = []
 
         for self.title in self.titles_elements:
             self.titles.append(self.title.text.replace("\n", "", -1).replace("  ","",-1))
         
-        return self.titles
+        for self.link in self.links_element_parent:
+            self.links.append(self.link.find_all("a"))
+
+        return [self.titles, self.links]
 
 
 search = str(input("Type smth to search : "))
 
 SCRAPER = scraper(search)
-SCRAPER_INFO = SCRAPER.find_titles()
+SCRAPER_INFO = SCRAPER.find_titles_and_links()
 
-print(SCRAPER_INFO)
+title = SCRAPER_INFO[0]
+links = SCRAPER_INFO[1]
+
+print(list(zip(title, links)))
