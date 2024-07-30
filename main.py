@@ -26,15 +26,14 @@ class scraper:
             self.AUTHORS = self.AUTHORS.replace("\n", "", -1).replace("Authors", "", -1)
             # TODO: Refactor this jumbled up mess of a code to use an parent_element.find_all('a') instead of ... whatever
             self.URLS_PARENT_ELEMENT = i.find('p', attrs={'class':'list-title is-inline-block'})
+            self.URLS_ELEMENTS = self.URLS_PARENT_ELEMENT.find_all('a', href=True)
             self.URLS = []
-
-            for _, element in enumerate(self.URLS_PARENT_ELEMENT):
-                self.URLS.append(element)
             
+            for _, aElement in enumerate(self.URLS_ELEMENTS):
+               self.URLS.append(aElement.get('href')) 
+
             self.MAIN_URL = self.URLS[0]
-            self.PDF_URL = str(self.URLS[2]).replace("<span>", "", -1).replace("</span>", "", -1)
-            self.PDF_URL = self.PDF_URL.split(",")[0].replace("[", "", -1).replace("]", "", -1)
-            print(BeautifulSoup(self.PDF_URL, 'html.parser').find('a').get('href'))
+            self.PDF_URL = self.URLS[1]
 
             self.RESULTS.append({'TITLE':self.TITLE, 'AUTHORS':self.AUTHORS, 'SUMMARY':self.SUMMARY, 'MAIN_URL':self.MAIN_URL, "PDF_URL":self.PDF_URL})
 
@@ -46,4 +45,4 @@ search: str = str(input("Type smth to search : "))
 SCRAPER: scraper = scraper(search)
 SCRAPER_INFO: list[dict[str, str]] = SCRAPER.find_titles_and_links()
 
-# print(SCRAPER_INFO)
+print(SCRAPER_INFO)
