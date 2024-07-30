@@ -5,35 +5,31 @@ import requests
 
 class scraper:
     def __init__(self, search_title: str) -> None:
-        search_title = search_title.replace(" ", "+", -1)
+        search_title: str = search_title.replace(" ", "+", -1)
         self.URL: str = f"https://arxiv.org/search/?query={search_title}&searchtype=all&abstracts=show&order=-announced_date_first&size=50"
 
         RESPONSE: requests.Response = requests.request("get", self.URL)
         RESPONSE_CONTENT = RESPONSE.content
         
-        self.SOUP = BeautifulSoup(RESPONSE_CONTENT, "html.parser")
-
+        self.SOUP: BeautifulSoup = BeautifulSoup(RESPONSE_CONTENT, "html.parser")
     
-    def find_titles_and_links(self):
+    def find_titles_and_links(self) -> list[dict[str, str]]:
         self.ORDERED_LIST_RESULTS = self.SOUP.find("ol", attrs={'class':'breathe-horizontal'})
         self.LIST_OF_RESULTS = self.ORDERED_LIST_RESULTS.find_all('li', attrs={'class':'arxiv-result'})
-        self.RESULTS = []
+        self.RESULTS: list[dict[str, str]] = []
 
         for i in self.LIST_OF_RESULTS:
             # TODO: TITLE, AUTHORS, SUMMARY, PDF, PDF URL, MAIN URL
-            self.TITLE = i.find('p', attrs={'class':'title is-5 mathjax'})
+            self.TITLE: str = str(i.find('p', attrs={'class':'title is-5 mathjax'}).text)
 
-            self.RESULTS.append({'TITLE':self.TITLE.text})
+            self.RESULTS.append({'TITLE':self.TITLE})
 
         return self.RESULTS
 
 
-search = str(input("Type smth to search : "))
+search: str = str(input("Type smth to search : "))
 
-SCRAPER = scraper(search)
-SCRAPER_INFO = SCRAPER.find_titles_and_links()
-
-# title = SCRAPER_INFO[0]
-# links = SCRAPER_INFO[1]
+SCRAPER: scraper = scraper(search)
+SCRAPER_INFO: list[dict[str, str]] = SCRAPER.find_titles_and_links()
 
 print(SCRAPER_INFO)
