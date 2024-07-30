@@ -6,4 +6,9 @@ SERVER: FastAPI = FastAPI()
 
 @SERVER.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {}
+
+
+@SERVER.get("/search/")
+async def search(search: str):
+    return {"SEARCH":search}
