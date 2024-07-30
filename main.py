@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
-from colorama import Fore
 import requests
+
 
 class scraper:
     def __init__(self, search_title: str) -> None:
@@ -24,7 +24,7 @@ class scraper:
             
             self.TITLE = self.TITLE.replace("\n", "", -1)
             self.AUTHORS = self.AUTHORS.replace("\n", "", -1).replace("Authors", "", -1)
-            # TODO: Refactor this jumbled up mess of a code to use an parent_element.find_all('a') instead of ... whatever
+
             self.URLS_PARENT_ELEMENT = i.find('p', attrs={'class':'list-title is-inline-block'})
             self.URLS_ELEMENTS = self.URLS_PARENT_ELEMENT.find_all('a', href=True)
             self.URLS = []
@@ -40,9 +40,10 @@ class scraper:
         return self.RESULTS
 
 
-search: str = str(input("Type smth to search : "))
+if __name__ == "__main__":
+    search: str = str(input("Type smth to search : "))
 
-SCRAPER: scraper = scraper(search)
-SCRAPER_INFO: list[dict[str, str]] = SCRAPER.find_titles_and_links()
+    SCRAPER: scraper = scraper(search)
+    SCRAPER_INFO: list[dict[str, str]] = SCRAPER.find_titles_and_links()
 
-print(SCRAPER_INFO)
+    print(SCRAPER_INFO)
