@@ -1,0 +1,36 @@
+.container{
+    display: flex;
+    position:relative;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+    justify-self: center;
+    top: 40vh;
+}
+
+form{
+    position: relative;
+    display: flex;
+    padding-left: 50px;
+    padding-right: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border: solid rgb(123, 163, 123) 0.5px;
+    background-color: rgba(53, 53, 53, 0.75);
+    border-radius: 15px;
+}
+
+#search{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#field{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#button-submit{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
