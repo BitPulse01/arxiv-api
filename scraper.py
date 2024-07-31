@@ -3,9 +3,13 @@ import requests
 
 
 class scraper:
-    def __init__(self, search_title: str) -> None:
+    def __init__(self, search_title: str, field: str = None) -> None:
         search_title: str = search_title.replace(" ", "+", -1)
-        self.URL: str = f"https://arxiv.org/search/?query={search_title}&searchtype=all&abstracts=show&order=-announced_date_first&size=50"
+        if field:
+            self.URL: str = f"https://arxiv.org/search/{field}?query={search_title}&searchtype=all&abstracts=show&order=-announced_date_first&size=50"
+        else:
+            self.URL: str = f"https://arxiv.org/search/?query={search_title}&searchtype=all&abstracts=show&order=-announced_date_first&size=50"
+        
 
         RESPONSE: requests.Response = requests.request("get", self.URL)
         RESPONSE_CONTENT = RESPONSE.content
