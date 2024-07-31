@@ -17,8 +17,6 @@ def search():
     RESPONSE = requests.get(URL)
     RESPONSE_JSON = RESPONSE.json()
 
-    print(RESPONSE_JSON)
-    
     return render_template('info.html', json_information= RESPONSE_JSON)
 
 
