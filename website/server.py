@@ -1,8 +1,8 @@
 from flask import *
 import requests
 
-
 SERVER = Flask(__name__)
+
 
 @SERVER.route("/")
 def home():
@@ -17,7 +17,9 @@ def search():
     RESPONSE = requests.get(URL)
     RESPONSE_JSON = RESPONSE.json()
 
-    return RESPONSE_JSON
+    print(RESPONSE_JSON)
+    
+    return render_template('info.html', json_information= RESPONSE_JSON)
 
 
 if __name__ == '__main__':

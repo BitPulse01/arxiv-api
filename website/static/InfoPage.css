@@ -1,0 +1,29 @@
+.info{
+    position: relative;
+    margin-bottom: 5px;
+    border-top: solid 0.1px orange;
+}
+
+.title{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: block;
+    position: relative;
+    text-align: center;
+}
+
+.authors{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: block;
+    position: relative;
+    text-align: center;
+}
+
+.urls{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: block;
+    position: relative;
+    text-align: center;
+}
